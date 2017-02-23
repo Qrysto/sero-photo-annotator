@@ -1,0 +1,31 @@
+.segment {
+  text-align: center;
+}
+
+.canvas {
+  display: inline-block;
+  position: relative;
+  cursor: crosshair;
+}
+
+.svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.polygon {
+  stroke: #fff;
+  stroke-width: 1px;
+  fill: rgba(0,0,0,.15);
+}
+
+.vertex {
+  fill: #fff;
+}
+
+.buttons {
+  text-align: center;
+}
