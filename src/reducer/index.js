@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
-import photoURL from './photoURL';
+import photoID from './photoID';
 import photoSize from './photoSize';
 import polygon from './polygon';
 
 export default combineReducers({
-	photoURL,
+	photoID,
 	photoSize,
   polygon,
 });

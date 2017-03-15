@@ -1,5 +1,15 @@
 import createReducer from '../helpers/createReducer';
 
+// State shape:
+// {
+//  [id]: {
+//    vertices: [
+//      { x, y },
+//      ...
+//    ],
+//  },
+//  ...
+// }
 const initialState = [];
 
 export default createReducer(

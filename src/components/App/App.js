@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container, Header } from 'semantic-ui-react';
-import UrlInput from './UrlInput';
+import PhotoPicker from './PhotoPicker';
 import Annotator from './Annotator';
 import Result from './Result';
 
@@ -14,7 +14,7 @@ export default function App() {
           Sero.ai Photo Annotator
         </Header>
 
-		    <UrlInput />
+		    <PhotoPicker />
 
         <Annotator />
 

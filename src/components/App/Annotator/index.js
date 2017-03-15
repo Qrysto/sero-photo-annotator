@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import Annotator from './Annotator';
 
 const mapStateToProps = state => ({
-  photoURL: state.photoURL,
+  photoID: state.photoID,
   photoSize: state.photoSize,
   polygon: state.polygon,
 });
