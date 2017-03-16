@@ -27,7 +27,7 @@ export default class Annotator extends Component {
                 className={s.svg} 
                 width={photoSize.width} 
                 height={photoSize.height}
-                viewBox={`0 0 ${photoSize.width} ${photoSize.height}`}
+                viewBox={`0 0 ${photoSize.origWidth} ${photoSize.origHeight}`}
               >
                 <polygon 
                   className={s.polygon}
@@ -55,13 +55,26 @@ export default class Annotator extends Component {
 
   photoLoaded = event => {
     const { width, height } = event.target;
-    this.props.photoLoaded(width, height);
+
+    // get the original size of the image by creating a css-free image
+    const img = new window.Image();
+    img.onload = () => {
+      const origWidth = img.width;
+      const origHeight = img.height;
+      console.log(origWidth, origHeight);
+
+      this.props.photoLoaded(width, height, origWidth, origHeight);
+    }
+
+    img.src = event.target.src;
   };
 
   handleClick = event => {
+    const { width, height, origWidth, origHeight } = this.props.photoSize;
+
     const canvasPos = this.refs.canvas.getBoundingClientRect();
-    const x = event.clientX - canvasPos.left;
-    const y = event.clientY - canvasPos.top;
+    const x = (event.clientX - canvasPos.left) * origWidth / width;
+    const y = (event.clientY - canvasPos.top) * origHeight / height;
     
     this.props.addVertex(x, y);
   };

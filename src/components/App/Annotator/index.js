@@ -8,9 +8,9 @@ const mapStateToProps = state => ({
 });
 
 const actions = {
-  photoLoaded: (width, height) => ({
+  photoLoaded: (width, height, origWidth, origHeight) => ({
     type: 'PHOTO_LOADED',
-    payload: { width, height },
+    payload: { width, height, origWidth, origHeight },
   }),
 
   addVertex: (x, y) => ({
