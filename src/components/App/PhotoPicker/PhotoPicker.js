@@ -9,19 +9,13 @@ export default class PhotoPicker extends Component {
     loadPhoto: PropTypes.func.isRequired,
   };
 
-  state = {
-    parent: 'root',
-  };
-
   render() {
-    const { parent } = this.state;
-
     return (
       <div className={s.root}>
         <GooglePicker 
           viewId="DOCS_IMAGES"
           docsView={{
-            parent,
+            parent: 'root',
             includeFolders: true,
           }}
           clientId="920266114103-35pjmg0p77k85kgp848pmai3a7c4ie9l.apps.googleusercontent.com"
@@ -44,7 +38,6 @@ export default class PhotoPicker extends Component {
   onPhotoPicked = (data = {}) => {
     if (data.action === 'picked' && data.docs && data.docs[0]) {
       this.props.loadPhoto(data.docs[0].id);
-      this.setState({ parent: data.docs[0].parentId });
     }
   };
 }
