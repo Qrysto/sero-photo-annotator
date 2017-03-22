@@ -1,10 +1,14 @@
 import { combineReducers } from 'redux';
-import photoID from './photoID';
 import photoSize from './photoSize';
 import polygon from './polygon';
+import files from './files';
+import currentFilePath from './currentFilePath';
+import photoDataURI from './photoDataURI';
 
 export default combineReducers({
-	photoID,
 	photoSize,
   polygon,
+  files,
+  currentFilePath,
+  photoDataURI,
 });

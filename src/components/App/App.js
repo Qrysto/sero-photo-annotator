@@ -1,8 +1,9 @@
 import React from 'react';
 import { Container, Header } from 'semantic-ui-react';
-import PhotoPicker from './PhotoPicker';
+import FolderPicker from './FolderPicker';
 import Annotator from './Annotator';
 import Result from './Result';
+import FolderTree from './FolderTree';
 
 import s from './App.css';
 
@@ -14,7 +15,9 @@ export default function App() {
           Sero.ai Photo Annotator
         </Header>
 
-		    <PhotoPicker />
+		    <FolderPicker />
+
+        <FolderTree />
 
         <Annotator />
 
