@@ -13,8 +13,7 @@
     "react-redux": "^5.0.2",
     "redux": "^3.6.0",
     "redux-logger": "^2.8.1",
-    "semantic-ui-react": "^0.66.0",
-    "set-deeep": "^1.0.0"
+    "semantic-ui-react": "^0.66.0"
   },
   "scripts": {
     "start": "REACT_APP_CSS_MODULES=true react-scripts start",

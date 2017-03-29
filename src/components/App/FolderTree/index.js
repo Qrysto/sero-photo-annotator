@@ -1,5 +1,4 @@
 import { connect } from 'react-redux';
-import set from 'set-deeep';
 import FolderTree from './FolderTree';
 
 const mapStateToProps = state => ({

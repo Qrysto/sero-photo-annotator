@@ -1,0 +1,16 @@
+.item {
+  cursor: pointer;
+  opacity: .66;
+}
+
+.item.hover {
+  opacity: 1;
+}
+
+.icon {
+  composes: item;
+}
+
+.desc {
+  composes: item;
+}
