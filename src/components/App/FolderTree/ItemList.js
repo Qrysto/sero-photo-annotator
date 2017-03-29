@@ -4,11 +4,11 @@ import Item from './Item';
 
 export default class ItemList extends React.PureComponent {
   render() {
-    const { tree, root = false } = this.props;
+    const { tree, root = false, ...rest } = this.props;
     const Root = root ? List : List.List;
 
     return (
-      <Root>
+      <Root {...rest}>
         {Object.keys(tree).map(fileName => 
           <Item 
             key={fileName}
