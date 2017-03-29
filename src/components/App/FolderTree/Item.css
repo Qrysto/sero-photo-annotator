@@ -3,8 +3,13 @@
   opacity: .66;
 }
 
-.item.hover {
+.item.hover,
+.item.selected {
   opacity: 1;
+}
+
+.item.selected {
+  font-weight: bold;
 }
 
 .icon {

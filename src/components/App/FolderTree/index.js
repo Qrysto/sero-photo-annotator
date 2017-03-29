@@ -1,10 +1,14 @@
 import { connect } from 'react-redux';
 import FolderTree from './FolderTree';
+import { createSelector } from 'reselect';
 
-const mapStateToProps = state => ({
-  tree: state.files && Object.keys(state.files).reduce(
+const selectFiles = state => state.files;
+
+const selectTree = createSelector(
+  selectFiles,
+  (files) => files && Object.keys(files).reduce(
     (list, filePath) => {
-      const file = state.files[filePath];
+      // const file = state.files[filePath];
       const names = filePath.split('/');
 
       let obj = list;
@@ -14,12 +18,16 @@ const mapStateToProps = state => ({
         if (!obj[name]) obj[name] = {};
         obj = obj[name];
       }
-      obj[names[names.length - 1]] = file;
+      obj[names[names.length - 1]] = filePath;
 
       return list;
     },
     {}
   )
+)
+
+const mapStateToProps = state => ({
+  tree: selectTree(state)
 })
 
 const actions = {
