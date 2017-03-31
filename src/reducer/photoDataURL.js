@@ -5,7 +5,7 @@ const initialState = null;
 export default createReducer(
   initialState, 
   {
-    LOAD_PHOTO: (state, { payload: dataURI }) =>
-      dataURI,
+    LOAD_PHOTO: (state, { payload: { dataURL } }) =>
+      dataURL,
   }
 );

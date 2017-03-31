@@ -3,12 +3,12 @@ import photoSize from './photoSize';
 import polygon from './polygon';
 import files from './files';
 import currentFilePath from './currentFilePath';
-import photoDataURI from './photoDataURI';
+import photoDataURL from './photoDataURL';
 
 export default combineReducers({
 	photoSize,
   polygon,
   files,
   currentFilePath,
-  photoDataURI,
+  photoDataURL,
 });

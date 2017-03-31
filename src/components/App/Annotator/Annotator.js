@@ -5,7 +5,7 @@ import s from './Annotator.css';
 
 export default class Annotator extends Component {
   static propTypes = {
-    photoID: PropTypes.string,
+    photoDataURL: PropTypes.string,
     photoSize: PropTypes.object,
     polygon: PropTypes.array.isRequired,
     photoLoaded: PropTypes.func.isRequired,
@@ -14,14 +14,14 @@ export default class Annotator extends Component {
   };
 
   render() {
-    const { photoID, photoSize, polygon, reset } = this.props;
+    const { photoDataURL, photoSize, polygon, reset } = this.props;
 
-    return !!photoID && (
+    return !!photoDataURL && (
       <div>
         <Divider />
         <Segment basic className={s.segment}>
           <div ref="canvas" className={s.canvas} onClick={this.handleClick}>
-            <Image src={`https://drive.google.com/uc?export=download&id=${photoID}`} onLoad={this.photoLoaded} />
+            <Image src={photoDataURL} onLoad={this.photoLoaded} />
             {photoSize &&
               <svg 
                 className={s.svg} 

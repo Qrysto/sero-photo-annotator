@@ -47,7 +47,8 @@ export class Item extends React.PureComponent {
   };
 
   select = () => {
-    this.props.selectFile(this.props.data)
+    const { selectFile, data, file } = this.props;
+    selectFile(data, file)
   };
 
   handleMouseOver = () => {
@@ -64,11 +65,33 @@ const mapStateToProps = (state, props) => ({
   selected: state.currentFilePath === props.data,
 })
 
-const actions = {
-  selectFile: (filePath) => ({
-    type: 'SELECT_FILE',
-    payload: { filePath }
-  })
-}
+const actions = dispatch => ({
+  selectFile: (filePath, file) => {
+    dispatch({
+      type: 'SELECT_FILE',
+      payload: { filePath }
+    })
+
+    // Load image if it is an image
+    console.log('type', file.type);
+    if (file && file.type.match(/image/)) {
+      const reader = new FileReader()
+      reader.onload = (evt) => {
+        console.log(evt.target);
+        dispatch({
+          type: 'LOAD_PHOTO',
+          payload: { dataURL: evt.target.result }
+        })
+      }
+      reader.readAsDataURL(file)
+      console.log('read');
+    } else {
+      dispatch({
+        type: 'LOAD_PHOTO',
+        payload: { dataURL: null }
+      })
+    }
+  }
+})
 
 export default connect(mapStateToProps, actions)(Item)
