@@ -77,14 +77,12 @@ const actions = dispatch => ({
     if (file && file.type.match(/image/)) {
       const reader = new FileReader()
       reader.onload = (evt) => {
-        console.log(evt.target);
         dispatch({
           type: 'LOAD_PHOTO',
           payload: { dataURL: evt.target.result }
         })
       }
       reader.readAsDataURL(file)
-      console.log('read');
     } else {
       dispatch({
         type: 'LOAD_PHOTO',
