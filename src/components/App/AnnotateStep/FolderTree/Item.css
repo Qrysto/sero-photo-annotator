@@ -19,3 +19,7 @@
 .desc {
   composes: item;
 }
+
+.annotations {
+  color: blue;
+}

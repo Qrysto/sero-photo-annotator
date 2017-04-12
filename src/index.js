@@ -1,27 +1,31 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import firebase from 'firebase';
 
 import createStore from './store';
 
 import App from './components/App';
 
-// Setup Redux's store
+// Setup Redux store
 const store = createStore({});
 
 // Render the app
-ReactDOM.render(
-	<Provider store={store}>
-		<App />
-	</Provider>,
-	document.getElementById('root')
-);
+function renderApp(App) {
+  ReactDOM.render(
+  	<Provider store={store}>
+  		<App />
+  	</Provider>,
+  	document.getElementById('root')
+  );
+}
 
-firebase.initializeApp({
-  apiKey: "AIzaSyDbXohFxVeFgwKtiZfTKCVApq2tv0bkpgI",
-  authDomain: "sero-annotator.firebaseapp.com",
-  databaseURL: "https://sero-annotator.firebaseio.com",
-  storageBucket: "sero-annotator.appspot.com",
-  messagingSenderId: "920266114103"
-});
+// Render app to the DOM
+renderApp(App);
+
+// Enable Hot Module Replacement
+if (module.hot) {
+  module.hot.accept('./components/App', () => {
+    const newApp = require('./components/App').default;
+    renderApp(newApp);
+  });
+}

@@ -13,7 +13,9 @@ export class Item extends React.PureComponent {
   };
 
   render() {
-    const { fileName, data, file, selected } = this.props;
+    // if this is a file, data would be filePath
+    // if this is a folder, data would be sub-tree
+    const { fileName, data, file, selected, annotations } = this.props;
     const { hover, collapsed } = this.state;
 
     return (
@@ -32,7 +34,14 @@ export class Item extends React.PureComponent {
             onMouseOver={this.handleMouseOver}
             onMouseOut={this.handleMouseOut}
           >
-            {fileName}
+            {fileName}{!!annotations &&
+              <span>
+                <span> - </span>
+                <span className={s.annotations}>
+                  {annotations} đánh dấu
+                </span>
+              </span>
+            }
           </List.Description>
           {!file && 
             <ItemList tree={data} style={{ display: collapsed ? 'none' : undefined}} />
@@ -47,8 +56,8 @@ export class Item extends React.PureComponent {
   };
 
   select = () => {
-    const { selectFile, data, file } = this.props;
-    selectFile(data, file)
+    const { selectFile, data: filePath, file } = this.props;
+    selectFile(filePath, file)
   };
 
   handleMouseOver = () => {
@@ -63,6 +72,9 @@ export class Item extends React.PureComponent {
 const mapStateToProps = (state, props) => ({
   file: typeof props.data === 'string' ? state.files[props.data] : undefined,
   selected: state.currentFilePath === props.data,
+  annotations: typeof props.data === 'string' 
+    ? (state.annotations[props.data] || []).length
+    : undefined,
 })
 
 const actions = dispatch => ({
@@ -72,8 +84,7 @@ const actions = dispatch => ({
       payload: { filePath }
     })
 
-    // Load image if it is an image
-    console.log('type', file.type);
+    // Load photo if it is an image
     if (file && file.type.match(/image/)) {
       const reader = new FileReader()
       reader.onload = (evt) => {

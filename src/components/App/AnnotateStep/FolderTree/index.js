@@ -4,21 +4,24 @@ import { createSelector } from 'reselect';
 
 const selectFiles = state => state.files;
 
+// generate tree of filePaths from list of filePaths
 const selectTree = createSelector(
   selectFiles,
   (files) => files && Object.keys(files).reduce(
     (list, filePath) => {
-      // const file = state.files[filePath];
       const names = filePath.split('/');
 
-      let obj = list;
+      // let pointer go through each file name level
+      // then assign filePath to the deepest level
+      let pointer = list;
       for (let i = 0; i < names.length - 1; i++) {
         const name = names[i];
 
-        if (!obj[name]) obj[name] = {};
-        obj = obj[name];
+        if (!pointer[name]) pointer[name] = {};
+        pointer = pointer[name];
       }
-      obj[names[names.length - 1]] = filePath;
+      const fileName = names[names.length - 1];
+      pointer[fileName] = filePath;
 
       return list;
     },

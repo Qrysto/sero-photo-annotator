@@ -12,9 +12,7 @@ export default class FolderTree extends Component {
     const { tree } = this.props;
 
     return tree && (
-      <div className={s.root}>
-        <ItemList root tree={tree} />
-      </div>
+      <ItemList root tree={tree} className={s.root} />
     );
   }
 }

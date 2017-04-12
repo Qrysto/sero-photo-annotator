@@ -1,10 +1,13 @@
-.segment {
+.root {
   text-align: center;
 }
 
 .canvas {
   display: inline-block;
   position: relative;
+}
+
+.editing {
   cursor: crosshair;
 }
 
@@ -19,7 +22,11 @@
 .polygon {
   stroke: #fff;
   stroke-width: 1px;
-  fill: rgba(0,0,0,.15);
+  fill: rgba(0,0,0,.2);
+}
+
+.selected {
+  fill: rgba(0,0,80,.2);
 }
 
 .vertex {

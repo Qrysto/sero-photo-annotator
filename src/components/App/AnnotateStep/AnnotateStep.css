@@ -1,0 +1,34 @@
+.root {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: stretch;
+  overflow: hidden;
+}
+
+.sidebar {
+  width: 400px;
+  flex-shrink: 0;
+  background-color: #fff;
+  border-right: 1px solid #666;
+}
+
+.photoView {
+  flex-grow: 1;
+  overflow: scroll;
+  overflow: auto;
+}
+
+.folderTree {
+  height: 60%;
+  overflow: scroll;
+  overflow: auto;
+  padding: 15px 5px;
+}
+
+.polygons {
+  height: 40%;
+  overflow: scroll;
+  overflow: auto;
+  border-top: 1px solid #666;
+}

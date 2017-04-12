@@ -4,7 +4,8 @@ import Annotator from './Annotator';
 const mapStateToProps = state => ({
   photoDataURL: state.photoDataURL,
   photoSize: state.photoSize,
-  polygon: state.polygon,
+  annotations: state.annotations[state.currentFilePath],
+  currentAnnotation: state.currentAnnotation,
 });
 
 const actions = {
@@ -13,14 +14,12 @@ const actions = {
     payload: { width, height, naturalWidth, naturalHeight },
   }),
 
-  addVertex: (x, y) => ({
-    type: 'ADD_VERTEX',
-    payload: { x, y },
-  }),
-
-  reset: () => ({
-    type: 'RESET',
-  }),
+  addVertex: (index, x, y) => (dispatch, getState) => {
+    dispatch({
+      type: 'ADD_VERTEX',
+      payload: { index, x, y, filePath: getState().currentFilePath },
+    })
+  },
 };
 
 export default connect(mapStateToProps, actions)(Annotator);

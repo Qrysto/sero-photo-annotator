@@ -1,14 +1,16 @@
 import { combineReducers } from 'redux';
 import photoSize from './photoSize';
-import polygon from './polygon';
+import annotations from './annotations';
 import files from './files';
 import currentFilePath from './currentFilePath';
 import photoDataURL from './photoDataURL';
+import currentAnnotation from './currentAnnotation';
 
 export default combineReducers({
 	photoSize,
-  polygon,
+  annotations,
   files,
   currentFilePath,
   photoDataURL,
+  currentAnnotation,
 });
