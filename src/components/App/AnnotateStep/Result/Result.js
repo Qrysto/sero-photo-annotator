@@ -31,6 +31,10 @@ export default class Result extends Component {
         <Button className={s.btn} primary disabled={!photoReady} onClick={addAnnotation}>
           Thêm đánh dấu
         </Button>
+
+        <p>
+          <em>* Click phải vào đỉnh đa giác để xoá đỉnh</em>
+        </p>
       </div>
     );
   }

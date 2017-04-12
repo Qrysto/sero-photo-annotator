@@ -23,14 +23,20 @@
   stroke: #fff;
   stroke-width: 1px;
   fill: rgba(0,0,0,.2);
+  cursor: pointer;
 }
 
 .selected {
-  fill: rgba(0,0,80,.2);
+  fill: rgba(0,0,0,.33);
+}
+
+.dimmed {
+  opacity: .3;
 }
 
 .vertex {
   fill: #fff;
+  cursor: pointer;
 }
 
 .buttons {

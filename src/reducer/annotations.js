@@ -48,6 +48,18 @@ export default createReducer(
       })
     ),
 
+    REMOVE_VERTEX: (state, { payload: { filePath, index, vertexIndex } }) => (
+      update(state, {
+        [filePath]: {
+          [index]: {
+            vertices: {
+              $splice: [[ vertexIndex, 1 ]]
+            }
+          }
+        }
+      })
+    ),
+
     TAG_DISEASE: (state, { payload: { filePath, index, disease } }) => (
       update(state, {
         [filePath]: {

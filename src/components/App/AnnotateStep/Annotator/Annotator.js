@@ -11,6 +11,8 @@ export default class Annotator extends Component {
     currentAnnotation: PropTypes.number,
     photoLoaded: PropTypes.func.isRequired,
     addVertex: PropTypes.func.isRequired,
+    removeVertex: PropTypes.func.isRequired,
+    selectAnnotation: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
@@ -18,12 +20,17 @@ export default class Annotator extends Component {
   };
 
   render() {
-    const { photoDataURL, photoSize, annotations, currentAnnotation } = this.props;
+    const { photoDataURL, photoSize, annotations, currentAnnotation, selectAnnotation } = this.props;
     const editing = typeof currentAnnotation === 'number'
 
     return !!photoDataURL && (
       <div className={s.root}>
-        <div ref="canvas" className={cn(s.canvas, { [s.editing]: editing })} onClick={editing && this.handleClick}>
+        <div 
+          ref="canvas" 
+          className={cn(s.canvas, { [s.editing]: editing })} 
+          onClick={editing && this.handleClick}
+          onContextMenu={this.handleRightClick}
+        >
           <img src={photoDataURL} onLoad={this.photoLoaded} role="presentation" />
 
           {photoSize &&
@@ -33,17 +40,28 @@ export default class Annotator extends Component {
               height={photoSize.height}
               viewBox={`0 0 ${photoSize.naturalWidth} ${photoSize.naturalHeight}`}
             >
-              {annotations.map((annotation, i) =>
-                <g key={i}>
+              {annotations.map((annotation, annIndex) =>
+                <g key={annIndex}>
                   <polygon 
-                    className={cn(s.polygon, { [s.selected]: i === currentAnnotation })}
+                    className={cn(s.polygon, { 
+                      [s.selected]: annIndex === currentAnnotation,
+                      [s.dimmed]: editing && annIndex !== currentAnnotation,
+                    })}
                     points={
                       annotation.vertices.map(v => `${v.x},${v.y}`).join(' ')
                     } 
+                    onClick={this.selectAnnotation(annIndex)}
                   />
 
                   {annotation.vertices.map((v, i) =>
-                    <circle key={i} cx={v.x} cy={v.y} r={3} className={s.vertex} onClick={this.handleDotClick} />
+                    <circle 
+                      key={i} 
+                      cx={v.x} 
+                      cy={v.y} 
+                      r={3} 
+                      className={s.vertex} 
+                      onContextMenu={this.handleDotRightClick(annIndex, i)} 
+                    />
                   )}
                 </g>
               )}
@@ -54,22 +72,32 @@ export default class Annotator extends Component {
     );
   }
 
-  photoLoaded = event => {
-    const { width, height, naturalWidth, naturalHeight } = event.target;
+  photoLoaded = evt => {
+    const { width, height, naturalWidth, naturalHeight } = evt.target;
     this.props.photoLoaded(width, height, naturalWidth, naturalHeight);
   };
 
-  handleClick = event => {
+  handleClick = evt => {
     const { currentAnnotation, photoSize: { width, height, naturalWidth, naturalHeight } } = this.props;
 
     const canvasPos = this.refs.canvas.getBoundingClientRect();
-    const x = (event.clientX - canvasPos.left) * naturalWidth / width;
-    const y = (event.clientY - canvasPos.top) * naturalHeight / height;
+    const x = (evt.clientX - canvasPos.left) * naturalWidth / width;
+    const y = (evt.clientY - canvasPos.top) * naturalHeight / height;
     
     this.props.addVertex(currentAnnotation, x, y);
   };
 
-  handleDotClick = evt => {
-    console.log('dot click', evt);
+  handleRightClick = evt => {
+    evt.preventDefault()
+  };
+
+  handleDotRightClick = (annIndex, vertexIndex) => evt => {
+    const { removeVertex } = this.props
+    removeVertex(annIndex, vertexIndex)
+  };
+
+  selectAnnotation = annIndex => evt => {
+    evt.stopPropagation()
+    this.props.selectAnnotation(annIndex)
   };
 }

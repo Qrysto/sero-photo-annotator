@@ -20,6 +20,18 @@ const actions = {
       payload: { index, x, y, filePath: getState().currentFilePath },
     })
   },
+
+  removeVertex: (index, vertexIndex) => (dispatch, getState) => {
+    dispatch({
+      type: 'REMOVE_VERTEX',
+      payload: { index, vertexIndex, filePath: getState().currentFilePath },
+    })
+  },
+
+  selectAnnotation: (index) => ({
+    type: 'SELECT_ANNOTATION',
+    payload: { index }
+  }),
 };
 
 export default connect(mapStateToProps, actions)(Annotator);
