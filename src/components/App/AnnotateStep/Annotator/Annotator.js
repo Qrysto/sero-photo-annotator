@@ -20,7 +20,7 @@ export default class Annotator extends Component {
   };
 
   render() {
-    const { photoDataURL, photoSize, annotations, currentAnnotation, selectAnnotation } = this.props;
+    const { photoDataURL, photoSize, annotations, currentAnnotation } = this.props;
     const editing = typeof currentAnnotation === 'number'
 
     return !!photoDataURL && (
